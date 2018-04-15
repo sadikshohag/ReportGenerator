@@ -1,6 +1,7 @@
 <?php 
 	$conn = mysqli_connect('localhost','root','','qubee');
 	$rec = mysqli_query($conn,"SELECT * FROM info");
+	
 /*	$record = mysqli_fetch_array($rec);
 	$category = $record['category'];
 	$down_Date_Time = $record['down_Date_Time'];
