@@ -58,7 +58,7 @@
 
 <body>
 
-<div class="container1">
+<!-- <div class="container1">
   
     
 		<a class="navbar-brand" href="#">Qubee</a>
@@ -79,9 +79,10 @@
         <li class="dropdown">
           <a href="#"><strong>LOGOUT</strong></a></li>
       </ul>
-	</div><!-- /.nav-collapse -->
+	</div>/.nav-collapse
  
-</div>
+</div> -->
+<?php include 'menu2.php'; ?>
 <br>
 <div class="container2">
   
@@ -89,9 +90,9 @@
 		<ul class="list-inline text-center">
 			<li><a href="down.php"><strong>Insert Outage</strong></a></li>			
 			<li><a href="outagereport.php"><strong>View Outage</strong> </a></li>			
-			<li><a href="#"><strong>Planned/Unplanned Outage</strong> </a></li>			
-			<li><a href="#"><strong>Outage Minute Graph</strong> </a></li>			
-			<li><a href="#"><strong>User Imapct Graph</strong> </a></li>			
+			<li><a href="planedOutage.php"><strong>Planned/Unplanned Outage</strong> </a></li>			
+			<li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			
+			<li><a href="userImpact.php"><strong>User Imapct Graph</strong> </a></li>			
 		</ul>
         
 	</div><!-- /.nav-collapse -->

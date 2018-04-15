@@ -1,9 +1,10 @@
 <?php 
 session_start();
-$id=$_SESSION['user'];
+$user_id=$_SESSION['user'];
+
 $dbc=mysqli_connect('localhost','root','','qubee')
 or die('Error for establishing connection');
-$query="SELECT permid FROM user_perm WHERE userid='$id'";
+$query="SELECT permid FROM user_perm WHERE userid='$user_id'";
 $result = mysqli_query($dbc,$query);
 $row=array();
  while($rows=mysqli_fetch_array($result)){
