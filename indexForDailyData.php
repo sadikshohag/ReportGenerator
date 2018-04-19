@@ -84,19 +84,18 @@
 </div> -->
 <?php include 'menu2.php'; ?>
 <br>
-<div class="container2">
+   <div class="container2">
   
 	<div class="collapse navbar-collapse js-navbar-collapse">
 		<ul class="list-inline text-center">
 			<li><a href="down.php"><strong>Insert Outage</strong></a></li>			
-			<li><a href="outagereport.php"><strong>View Outage</strong> </a></li>			
+			<li><a href="viewOutage.php"><strong>View Outage</strong> </a></li>			
 			<li><a href="planedOutage.php"><strong>Planned/Unplanned Outage</strong> </a></li>			
 			<li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			
 			<li><a href="userImpact.php"><strong>User Imapct Graph</strong> </a></li>			
 		</ul>
         
 	</div><!-- /.nav-collapse -->
- 
 </div>
 
 
@@ -286,18 +285,15 @@
 		</fieldset></div>
 		<br>
 		<fieldset>
-		<legend></legend>
-		<label>Last Modify By:</label>
-		<input type="text" name="last_ModifiedBy" value="<?php echo $last_ModifiedBy; ?>">
 		
-		<label>Last Modified Time</label>
-		<input type="datetime"  id = "lastModifiedTime" name="last_ModifiedDT" value="<?php echo $last_ModifiedDT; ?>">
+		<input type="hidden" name="last_ModifiedBy" value="<?php echo $_SESSION['user']; ?>">
+		<input type="hidden" name="last_ModifiedDT" value="<?php echo date('Y-m-d'); ?>">
 		</fieldset>
 		<br>
 		<fieldset>
 		<legend>Remarks</legend>
 		<label>
-		<center><textarea name="comment" value="<?php echo $comment; ?>"></textarea></center>
+		<center><input type="textarea" name="comment" value="<?php echo $comment; ?>"/></center>
 		</label>
 		</fieldset>
 		</form>
@@ -355,6 +351,15 @@ $("#datetime5").datetimepicker({
         showMeridian: 1
 });
 
+$("#datetime6").datetimepicker({
+		weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+});
 		
 	$(function () {
             $('.general').hide();
@@ -385,11 +390,7 @@ $("#datetime5").datetimepicker({
 			});				
 			});				
 		
-		 
-		function lastModified(){
-		document.write(document.lastModified);
-	}
-	lastModified();
+		
 			
  
 </script>
