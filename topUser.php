@@ -24,37 +24,16 @@ $servername = "localhost";
 <link rel="stylesheet" type="text/css"  href="style.css">
 <!------ Include the above in your HEAD tag ---------->
 <?php include 'menu2.php'; ?>
-<!-- <div class="container1">
-  
-    
-		<a class="navbar-brand" href="menu2.php">Qubee</a>
-	
-	
-	<div class="collapse navbar-collapse js-navbar-collapse">
-		<ul class="nav navbar-nav">
-			<li><a href="menu2.php"><strong>Home </strong></a></li>			
-			<li><a href="outage.php"><strong>Outage</strong> </a></li>			
-			<li><a href="#"><strong>Top Users</strong> </a></li>			
-			<li><a href="#"><strong>BTS</strong> </a></li>			
-			<li><a href="#"><strong>MISC</strong> </a></li>			
-			<li><a href="#"><strong>Admin Operations </strong></a></li>					
-            <li><a href="#"><strong>About</strong></a></li>
-            <li><a href="#"><strong>Contact Us</strong></a></li>
-		</ul>
-        <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#"><strong>LOGOUT</strong></a></li>
-      </ul>
-	</div>/.nav-collapse
- 
-</div> -->
+
 <br>
 <div class="container2">
   
 	<div class="collapse navbar-collapse ">
 		<ul class="list-inline text-center">
 			<li><a href="topDhk.php"><strong>Top User's DHK</strong></a></li>			
-			<li><a href="topCtg.php"><strong>Top User's CTG</strong> </a></li>			
+			<li><a href="topCtg.php"><strong>Top User's CTG</strong> </a></li>	
+      <li><a href="dailyOutagePattern.php"><strong>Daily Outage Pattern</strong></a></li>   
+      		
 		
 		</ul>
         

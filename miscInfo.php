@@ -1,19 +1,23 @@
 <?php 
-$servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "qubee";
-    $con = mysqli_connect($servername, $username, $password, $dbname);
-    $hard_details_data = array();
-    $query = "SELECT `id`, `package`,`peak_bw`, `avg_bw`, `95%Down`, `available_bw` FROM `misc`";
-    $result = mysqli_query($con,$query);
-    
-    while($row = mysqli_fetch_assoc($result))
-    {
-      $hard_details_data[]=$row;
-    }
+include 'miscDataProcess.php';
 
+$dataSet = array();
 
+if (isset($_POST['submit'])) {
+    $fromDate = $_POST['fromDate'];
+    $toDate = $_POST['toDate'];
+    $dataSet = getMiscDataType($fromDate, $toDate);
+} else {
+    $dt = new DateTime("now", new DateTimeZone('Asia/Dhaka'));
+    $toDate = $dt->format('Y-m-d');
+
+    $dt->modify('-4 day');
+    $fromDate = $dt->format('Y-m-d');
+
+    $dataSet = getMiscDataType($fromDate, $toDate);
+    // echo "<pre>";
+    // print_r($dataSet);die();
+}
 
 
  ?>
@@ -48,11 +52,23 @@ $servername = "localhost";
       <div class="page-header text-center">
         <h1>MISC Info</h1>
       </div>
+
+        <div>
+            <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>" >
+                <label>From Date:</label>
+                <input type="date" name="fromDate" required="" value="<?php echo $fromDate; ?>">
+                <label>To Date:</label>
+                <input type="date" name="toDate" required value="<?php echo $toDate; ?>">
+                <button class="btn btn-success" name="submit" value="submit">Submit</button>
+            </form>
+        </div>
+        <br>
       <div class="container">
         <div class="table-responsive">
         <table id="mytable" class="table table-bordered table-hover">
             <thead>
                 <tr class="alert-success">
+                  <th>Date</th>
                   <th>Package</th>
                   <!-- <th>Date</th> -->
                   <th>PEAK BW ( Down)[Mbps]</th>
@@ -63,10 +79,11 @@ $servername = "localhost";
             </thead>
             <tbody>
               <?php
-                if (!empty($hard_details_data)) :
-                  foreach ($hard_details_data as $Oneuser) :
+                if (!empty($dataSet)) :
+                  foreach ($dataSet as $Oneuser) :
                     ?>
                   <tr>
+                    <td><?php echo $Oneuser['date']; ?></td>
                     <td><?php echo $Oneuser['package'];?></td>
                     <!-- <td><?php echo $Oneuser['date'];?></td> -->
                     <td><?php echo $Oneuser['peak_bw'];?></td>

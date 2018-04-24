@@ -7,7 +7,8 @@ if (isset($_POST['submit'])) {
 	$avg_bw=$_POST['avg_bw'];
 	$down = $_POST['95%down'];
 	$available_bw=$_POST['available_bw'];
-	$query="INSERT into misc VALUES('','$package','$peak_bw','$avg_bw','$down','$available_bw')";
+  $date = $_POST['date'];
+	$query="INSERT into misc VALUES('','$package','$peak_bw','$avg_bw','$down','$available_bw','$date')";
 	$result = mysqli_query($con,$query);
 	mysqli_close($con);
 }
@@ -61,6 +62,7 @@ if (isset($_POST['submit'])) {
       <input type="text" class="form-control" name="avg_bw" placeholder="AVG BW ( Down)[Mbps]" required=""/><br>
       <input type="text" class="form-control" name="95%down" placeholder="95 % Down[Mbps]" required=""/><br>
       <input type="text" class="form-control" name="available_bw" placeholder="Available BW" required=""/><br>
+      <input type="hidden" name="date" value="<?php echo date('Y-m-d'); ?>">
       <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Submit</button>   
     </form>
   </div>
