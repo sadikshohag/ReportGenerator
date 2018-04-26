@@ -1,8 +1,4 @@
 <?php include('server1.php');
-
-	
-	
-
 	
 ?>
 <!Doctype html>
@@ -25,7 +21,7 @@
 </head>
 
 <body>
-	<?php include 'menu2.php'; ?>
+	<?php include 'menu2.php'; ?>  
 	 <br> 
            <div class="container2">
   
@@ -35,7 +31,7 @@
 			<li><a href="viewOutage.php"><strong>View Outage</strong> </a></li>			
 			<li><a href="planedOutage.php"><strong>Planned/Unplanned Outage</strong> </a></li>			
 			<li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			
-			<li><a href="userImpact.php"><strong>User Imapct Graph</strong> </a></li>			
+			<li><a href="#"><strong>User Imapct Graph</strong> </a></li>			
 		</ul>
         
 	</div><!-- /.nav-collapse -->
@@ -182,15 +178,13 @@
 		<input type="text" name="noc_DutyEngineer" value="<?php echo $_GET['noc_DutyEngineer']; ?>">
 		</fieldset>
 		<br>
-		<br>
 		<fieldset>
-		<legend></legend>
-		<label>Last Modify By:</label>
-		<input type="text" name="last_ModifiedBy" value="<?php echo $_GET['last_ModifiedBy']; ?>">
 		
-		<label>Last Modified Time</label>
-		<input type="datetime" id="datetime6" name="last_ModifiedDT" value="<?php echo $_GET['last_ModifiedDT']; ?>">
+		<input type="hidden" name="last_ModifiedBy" value="<?php echo $_SESSION['uname']; ?>">
+		<input type="hidden" name="last_ModifiedDT" value="<?php echo date('Y-m-d'); ?>">
 		</fieldset>
+		<br>
+		
 		<fieldset>
 		<legend>Remarks</legend>
 		<label>

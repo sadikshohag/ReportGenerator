@@ -24,35 +24,30 @@ $servername = "localhost";
 <head>
 	<meta charset="UTF-8">
 	<title>Top user Dhaka</title>
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css"  href="style.css">
 </head>
 <body>
-	<?php include 'topUser.php'; ?>
-<!-- <div class="container1">
-  
-    
-		<a class="navbar-brand" href="#">Qubee</a>
-	
-	
-	<div class="collapse navbar-collapse js-navbar-collapse">
-		<ul class="nav navbar-nav">
-			<li><a href="#"><strong>Home </strong></a></li>			
-			<li><a href="outage.php"><strong>Outage</strong> </a></li>			
-			<li><a href="#"><strong>Top Users</strong> </a></li>			
-			<li><a href="#"><strong>BTS</strong> </a></li>			
-			<li><a href="#"><strong>MISC</strong> </a></li>			
-			<li><a href="#"><strong>Admin Operations </strong></a></li>					
-            <li><a href="#"><strong>About</strong></a></li>
-            <li><a href="#"><strong>Contact Us</strong></a></li>
-		</ul>
-        <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#"><strong>LOGOUT</strong></a></li>
-      </ul>
-	</div>/.nav-collapse
- 
-</div> -->
+<?php include 'menu2.php'; ?>
+
 <br>
-	
+	<div class="container2">
+  
+  <div class="collapse navbar-collapse ">
+    <ul class="list-inline text-center">
+      <li><a href="topDhk.php"><strong>Top User's DHK</strong></a></li>     
+      <li><a href="topCtg.php"><strong>Top User's CTG</strong> </a></li>  
+      <li><a href="dailyOutagePattern.php"><strong>Daily Outage Pattern</strong></a></li>   
+          
+    
+    </ul>
+        
+  </div><!-- /.nav-collapse -->
+ 
+</div>
+<br>
 	<div class="wrapper">
       <div class="page-header text-center">
         <h1>Top Twenty Users - Dhaka</h1>

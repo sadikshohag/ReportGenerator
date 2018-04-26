@@ -68,7 +68,7 @@ function ExportFile($records) {
   
 	<div class="collapse navbar-collapse js-navbar-collapse">
 		<ul class="list-inline text-center">
-			<li><a href="down.php"><strong>Insert Outage</strong></a></li>			
+			<li><a href="indexForDailyData.php"><strong>Insert Outage</strong></a></li>			
 			<li><a href="viewOutage.php"><strong>View Outage</strong> </a></li>			
 			<li><a href="planedOutage.php"><strong>Planned/Unplanned Outage</strong> </a></li>			
 			<li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			

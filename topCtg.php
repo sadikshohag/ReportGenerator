@@ -24,10 +24,30 @@ $servername = "localhost";
 <head>
 	<meta charset="UTF-8">
 	<title>Top user Chittagong</title>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css"  href="style.css">
 </head>
 <body>
-
-	<?php include 'topUser.php'; ?>
+<?php include 'menu2.php'; ?>
+<br>
+<div class="container2">
+  
+  <div class="collapse navbar-collapse ">
+    <ul class="list-inline text-center">
+      <li><a href="topDhk.php"><strong>Top User's DHK</strong></a></li>     
+      <li><a href="topCtg.php"><strong>Top User's CTG</strong> </a></li> 
+      <li><a href="dailyOutagePattern.php"><strong>Daily Outage Pattern</strong></a></li>   
+           
+    
+    </ul>
+        
+  </div><!-- /.nav-collapse -->
+ 
+</div>
+<br>
 	<div class="wrapper">
       <div class="page-header text-center">
         <h1>Top Twenty Users - Chittagong</h1>
@@ -65,8 +85,6 @@ $servername = "localhost";
         </table>
         </div>
     </div>
-   </div>
-	<?php include 'footer.php'; ?>
-	
+   </div>	
 </body>
 </html>
