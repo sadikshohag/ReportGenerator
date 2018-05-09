@@ -1,5 +1,6 @@
 <?php include('server.php');
- 
+ include 'session.php';
+chk_Session(2); 
  if(isset($_GET['edit'])) {
 	$id = $_GET['edit'];
 	$edit_state = true;
@@ -31,6 +32,12 @@
 	$comment = $record['comment'];
 	$id = $record['id'];
 	
+	}
+	$bts_list = array();
+	$sql = "SELECT `Qubee_ID` FROM `onair` ";
+	$queryResult = mysqli_query($conn, $sql);
+	while($row = mysqli_fetch_assoc($queryResult)){
+		array_push($bts_list, $row['Qubee_ID']);
 	}
 	
 ?>
@@ -88,7 +95,7 @@
   
 	<div class="collapse navbar-collapse js-navbar-collapse">
 		<ul class="list-inline text-center">
-			<li><a href="down.php"><strong>Insert Outage</strong></a></li>			
+			<li><a href="indexForDailyData.php"><strong>Insert Outage</strong></a></li>			
 			<li><a href="viewOutage.php"><strong>View Outage</strong> </a></li>			
 			<li><a href="planedOutage.php"><strong>Planned/Unplanned Outage</strong> </a></li>			
 			<li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			
@@ -120,11 +127,67 @@
  <div id="trSite" class="general">
 	 <fieldset>
 	 <legend>Site Info</legend>
-	 <label><b>Site</b></label> 
-	 <input type="text" name="site" value="<?php echo $site; ?>">
-	 <label><b>Sector</b></label>
-	 <input type="text" name="sector" value="<?php echo $sector; ?>">
+	  <label><b>Site</b></label> 
+	 <!--<input type="text" name="site" value="<?php //echo $site; ?>">-->
+	  <select name="site">
+		<option value=""></option>
+		<?php
+			foreach($bts_list as $bts){
+				$selected=($options == $bts)? "selected" : "";
+				echo "<option '.$selected.'value=".$bts.">". $bts ."</option>" ;
+			}
+		
+		?>
+			 
+	 </select>
+	<label><b>Sector</b></label>
+	 <select name="sector">
+	 <option value=""></option>
+	 <option <?php echo($sector=='1')?"selected":""?>>1</option>
+	 <option <?php echo($sector=='2')?"selected":""?>>2</option>
+	 <option <?php echo($sector=='3')?"selected":""?>>3</option>
+	 <option <?php echo($sector=='4')?"selected":""?>>4</option>
+	 <option <?php echo($sector=='5')?"selected":""?>>5</option>
+	 <option <?php echo($sector=='6')?"selected":""?>>6</option>
+	 <option <?php echo($sector=='7')?"selected":""?>>7</option>
+	 </select>
 	</fieldset>
+</div>
+<br>
+<div>
+	<fieldset>
+	<label><b>Information Source</b></label> 
+		 <input type="text" name="information_Source" value="<?php echo $information_Source; ?>">
+		 <label><b>Outage Type</label>
+		 <select name="outage_type">
+			<option value=""></option>
+			<option <?php echo($outage_type=='Planned')?"selected":""?>>Planned</option>
+			<option <?php echo($outage_type=='Unplanned')?"selected":""?>>Unplanned</option>
+		 </select>
+
+		 <label><b>Reason</label>
+		 <select name="reason">
+			<option value=""></option>
+			<option <?php echo($reason=='Power problem')?"selected":""?>>Power problem</option>
+			<option <?php echo($reason=='Battery problem')?"selected":""?>>Battery problem</option>
+			<option <?php echo($reason=='Fiber problem')?"selected":""?>>Fiber problem</option>
+			<option <?php echo($reason=='Equipment problem')?"selected":""?>>Equipment problem</option>
+			<option <?php echo($reason=='Technical problem')?"selected":""?>>Technical problem</option>
+			<option <?php echo($reason=='Problem at SCL end')?"selected":""?>>Problem at SCL end</option>
+			<option <?php echo($reason=='Problem at Summit end')?"selected":""?>>Problem at Summit end</option>
+			<option <?php echo($reason=='CPRI cable faulty')?"selected":""?>>CPRI cable faulty</option>
+			<option <?php echo($reason=='PMU faulty')?"selected":""?>>PMU faulty</option>
+			<option <?php echo($reason=='Soft block')?"selected":""?>>Soft block</option>
+			<option <?php echo($reason=='Device malfunctioning')?"selected":""?>>Device malfunctioning</option>
+			<option <?php echo($reason=='Device problem at SCL end')?"selected":""?>>Device problem at SCL end</option>
+			<option <?php echo($reason=='Breaker tripped')?"selected":""?>>Breaker tripped</option>
+			<option <?php echo($reason=='Link flap')?"selected":""?>>Link flap</option>
+			<option <?php echo($reason=='Others')?"selected":""?>>Others</option>
+			</select>
+		 
+		 <label><b>Specific reason</label>
+		 <input type="text" name="specific_reason" value="<?php echo $specific_reason; ?>">
+		</fieldset>
 </div>
 <br>
 	 <div id="trLink" class="general"> 
@@ -136,77 +199,30 @@
 			<option <?php echo($fiber_Vendor=='Summit')?"selected":""?>>Summit</option>
 			<option <?php echo($fiber_Vendor=='Telnet')?"selected":""?>>Telnet</option>
 			<option <?php echo($fiber_Vendor=='F@H')?"selected":""?>>F@H</option>
+			<option <?php echo($fiber_Vendor=='APCL')?"selected":""?>>APCL</option>
+			<option <?php echo($fiber_Vendor=='SCL')?"selected":""?>>SCL</option>
+			<option <?php echo($fiber_Vendor=='N/A')?"selected":""?>>N/A</option>
+
 			</select>
 			
 		 <label><b>Link Between</b></label>
 		 <input type="text" name="link_Between" value="<?php echo $link_Between; ?>"> 
-		 <label><b>Information Source</b></label> 
+		 <!-- <label><b>Information Source</b></label> 
 		 <input type="text" name="information_Source" value="<?php echo $information_Source; ?>">
 		 <label><b>Outage Type</label>
 		 <select name="outage_type">
 			<option value=""></option>
 			<option <?php echo($outage_type=='Planned')?"selected":""?>>Planned</option>
 			<option <?php echo($outage_type=='Unplanned')?"selected":""?>>Unplanned</option>
-			</select></fieldset>
+			</select> -->
 	
-		<fieldset>
-		 <label><b>Reason</label>
-		 <select name="reason">
-			<option value=""></option>
-			<option <?php echo($reason=='Power problem')?"selected":""?>>Power problem</option>
-			<option <?php echo($reason=='Battery problem')?"selected":""?>>Battery problem</option>
-			<option <?php echo($reason=='Others')?"selected":""?>>Others</option>
-			</select>
-		 
-		 <label><b>Specific reason</label>
-		 <input type="text" name="specific_reason" value="<?php echo $specific_reason; ?>"></fieldset>
+		
 		 
 		</fieldset>
 		</div>
 		<br>
 		
-		<div id="trboth" class="general"> 
-	 <fieldset>
-	 
-		<legend>Site Info</legend>
-	 <label><b>Site</b></label> 
-	 <input type="text" name="site" value="<?php echo $site; ?>">
-	 <label><b>Sector</b></label>
-	 <input type="text" name="sector" value="<?php echo $sector; ?>">
-		 <legend>Link Info</legend>
-		 <label><b>Fiber Vendor</label>
-		 <select name="fiber_Vendor">
-			<option value=""></option>
-			<option <?php echo($fiber_Vendor=='Summit')?"selected":""?>>Summit</option>
-			<option <?php echo($fiber_Vendor=='Telnet')?"selected":""?>>Telnet</option>
-			<option <?php echo($fiber_Vendor=='F@H')?"selected":""?>>F@H</option>
-			</select>
-			
-		 <label><b>Link Between</b><label>
-		 <input type="text" name="link_Between" value="<?php echo $link_Between; ?>"> 
-		 <label><b>Information Source</b></label> 
-		 <input type="text" name="information_Source" value="<?php echo $information_Source; ?>">
-		 <label><b>Outage Type</label>
-		 <select name="outage_type">
-			<option value=""></option>
-			<option <?php echo($outage_type=='Planned')?"selected":""?>>Planned</option>
-			<option <?php echo($outage_type=='Unplanned')?"selected":""?>>Unplanned</option>
-			</select>
 	
-		
-		 <label><b>Reason</b></label>
-		 <select name="reason">
-			<option value=""></option>
-			<option <?php echo($reason=='Power problem')?"selected":""?>>Power problem</option>
-			<option <?php echo($reason=='Battery problem')?"selected":""?>>Battery problem</option>
-			<option <?php echo($reason=='Others')?"selected":""?>>Others</option>
-			</select>
-		 
-		 <label><b>Specific reason</b></label>
-		 <input type="text" name="specific_reason" value="<?php echo $specific_reason; ?>">
-		 
-		</fieldset>
-		</div>
 		<br>
 		<fieldset>
        <legend>Date Time</legend>		
@@ -286,7 +302,7 @@
 		<br>
 		<fieldset>
 		
-		<input type="hidden" name="last_ModifiedBy" value="<?php echo $_SESSION['user']; ?>">
+		<input type="hidden" name="last_ModifiedBy" value="<?php echo $_SESSION['uname']; ?>">
 		<input type="hidden" name="last_ModifiedDT" value="<?php echo date('Y-m-d'); ?>">
 		</fieldset>
 		<br>
