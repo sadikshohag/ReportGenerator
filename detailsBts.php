@@ -1,17 +1,22 @@
 <?php
-$servername = "localhost";
+if(isset($_GET['id']))
+{
+    $id=$_GET['id'];
+    $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "qubee";
     $con = mysqli_connect($servername, $username, $password, $dbname);
     $hard_details_data = array();
-    $query = "SELECT * from onair";
+    $query = "SELECT * from onair where id = $id";
     $result = mysqli_query($con,$query);
     
     while($row = mysqli_fetch_assoc($result))
     {
       $hard_details_data[]=$row;
     }
+}
+    
 
 ?>
 
@@ -54,14 +59,28 @@ $servername = "localhost";
                 <tr class="alert-success">
                   <th>SL</th>
                   <th>Qubee ID</th>
+                  <th>Operator_Site_ID</th>
                   <th>Operator</th>
                   <th>Region</th>
+                  <th>Cluster_Name</th>
                   <th>Location</th>
+                  <th>District</th>
                   <th>Status</th>
                   <th>On Air Date</th>
-                  <th>No_Sector</th>
+                  <th>Turn_Off_Date</th>
+                  <th>Final Soft Copy (SSD)</th>
+                  <th>PAC_Date</th>
                   <th>Civil Vendor</th>
-                  <th>Details</th>
+                  <th>Civil_PAC_date</th>
+                  <th>Site_Address</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                  <th>Coverage_Objective</th>
+                  <th>Sector_Remarks</th>
+                  <th>Power_Type</th>
+                  <th>House_Owner_Contact</th>
+                  <th>Battery_Type_AH</th>
+                  <th>Key_Lock_Remarks</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,16 +93,29 @@ $servername = "localhost";
                   <tr>
                   	<td><?php echo $serial;?></td>
                     <td><?php echo $Oneuser['Qubee_ID'];?></td>
+                    <td><?php echo $Oneuser['Operator_Site_ID']; ?></td>
                     <td><?php echo $Oneuser['Operator'];?></td>
                     <td><?php echo $Oneuser['Region'];?></td>
+                    <td><?php echo $Oneuser['Cluster_Name']; ?></td>
                     <td><?php echo $Oneuser['Location'];?></td>
+                    <td><?php echo $Oneuser['district']; ?></td>
                     <td width="10px"><?php echo $Oneuser['Status']; ?></td>
                     <td><?php echo $Oneuser['On_Air_Date']; ?></td>
-                    <td><?php echo $Oneuser['No_Sector']; ?></td>
+                    <td><?php echo $Oneuser['Turn_Off_Date']; ?></td>
+                    <td><?php echo $Oneuser['Final_Soft_Copy_SSD']; ?></td>
+                    <td><?php echo $Oneuser['PAC_Date']; ?></td>
                     <td><?php echo $Oneuser['Civil_Vendor']; ?></td>
-                    <td>
-                      <a href="testBtsdetails.php?id=<?php echo $Oneuser['id']; ?>">Details</a>
-                    </td>
+                    <td><?php echo $Oneuser['Civil_PAC_date']; ?></td>
+                    <td><?php echo $Oneuser['Site_Address']; ?></td>
+                    <!-- <td><?php echo $Oneuser['']; ?></td> -->
+                    <td><?php echo $Oneuser['Latitude']; ?></td>
+                    <td><?php echo $Oneuser['Longitude']; ?></td>
+                    <td><?php echo $Oneuser['Coverage_Objective']; ?></td>
+                    <td><?php echo $Oneuser['Sector_Remarks']; ?></td>
+                    <td><?php echo $Oneuser['Power_Type']; ?></td>
+                    <td><?php echo $Oneuser['House_Owner_Contact']; ?></td>
+                    <td><?php echo $Oneuser['Battery_Type_AH']; ?></td>
+                    <td><?php echo $Oneuser['Key_Lock_Remarks']; ?></td>
                   </tr>
                     <?php
                    

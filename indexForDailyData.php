@@ -91,14 +91,16 @@ chk_Session(2);
 </div> -->
 <?php include 'menu2.php'; ?>
 <br>
-   <div class="container2">
+<div class="container2">
   
 	<div class="collapse navbar-collapse js-navbar-collapse">
 		<ul class="list-inline text-center">
-			<li><a href="indexForDailyData.php"><strong>Insert Outage</strong></a></li>			
-			<li><a href="viewOutage.php"><strong>View Outage</strong> </a></li>			
+			<li><a href="indexForDailyData.php"><strong>Insert Outage</strong></a></li>
+			<li><a href="outage.php"><strong>Outage Log</strong></a></li>			
+			<li><a href="viewOutage.php"><strong>View Daily Outage</strong> </a></li>
+			<li><a href="outageData.php"><strong>Outage Data</strong></a></li>						
 			<li><a href="planedOutage.php"><strong>Planned/Unplanned Outage</strong> </a></li>			
-			<li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			
+			<!-- <li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			 -->
 			<li><a href="userImpact.php"><strong>User Imapct Graph</strong> </a></li>			
 		</ul>
         
@@ -199,6 +201,7 @@ chk_Session(2);
 			<option <?php echo($fiber_Vendor=='Summit')?"selected":""?>>Summit</option>
 			<option <?php echo($fiber_Vendor=='Telnet')?"selected":""?>>Telnet</option>
 			<option <?php echo($fiber_Vendor=='F@H')?"selected":""?>>F@H</option>
+			<option <?php echo($fiber_Vendor=='Drik')?"selected":""?>>Drik</option>
 			<option <?php echo($fiber_Vendor=='APCL')?"selected":""?>>APCL</option>
 			<option <?php echo($fiber_Vendor=='SCL')?"selected":""?>>SCL</option>
 			<option <?php echo($fiber_Vendor=='N/A')?"selected":""?>>N/A</option>

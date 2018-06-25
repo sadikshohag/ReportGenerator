@@ -9,8 +9,12 @@
 </head>
 <body>
 
-  <?php include 'header.php'; ?>
+  <?php 
 
+  //session_start();
+  include 'menu2.php'; 
+  ?>
+  
   
   <div class="container-fluid text-center">    
   <div class="row content">
@@ -75,7 +79,7 @@
   </div>
 </div>
 
-<?php include 'footer.php'; ?>
+
 
 </body>
 </html>

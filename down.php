@@ -30,7 +30,7 @@
 	 <!DOCTYPE html>  
  <html>  
       <head>  
-           <title></title>  
+           <title>BTS Outage </title>  
 		   <link rel="stylesheet" type="text/css"  href="style.css">
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />  
@@ -70,11 +70,13 @@
   
 	<div class="collapse navbar-collapse js-navbar-collapse">
 		<ul class="list-inline text-center">
-			<li><a href="down.php"><strong>Insert Outage</strong></a></li>			
-			<li><a href="viewOutage.php"><strong>View Outage</strong> </a></li>			
+			<li><a href="indexForDailyData.php"><strong>Insert Outage</strong></a></li>	
+			<li><a href="outage.php"><strong>Outage Log</strong></a></li>			
+			<li><a href="viewOutage.php"><strong>View Outage</strong> </a></li>	
+      		<li><a href="outageData.php"><strong>Outage Data</strong></a></li>            		
 			<li><a href="planedOutage.php"><strong>Planned/Unplanned Outage</strong> </a></li>			
-			<li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			
-			<li><a href="#"><strong>User Imapct Graph</strong> </a></li>			
+			<!-- <li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			 -->
+			<li><a href="userImpact.php"><strong>User Imapct Graph</strong> </a></li>			
 		</ul>
         
 	</div><!-- /.nav-collapse -->
@@ -116,9 +118,9 @@ while ($row = mysqli_fetch_array($rec)){ ?>
 			
 			
 			<td><?php echo $row['category'];?></td>
-			<td><?php echo $row['down_Date_Time'];?></td>
-			<td><?php echo $row['up_Date_Time']; ?></td>
-			<td><?php echo $row['site']; ?></td>
+			<td><?php echo $row['Down_Date'] ." ". $row['Down_Time'];?></td>
+			<td><?php echo $row['Up_Date'] ."  ". $row['Up_Time']; ?></td>
+			<td><?php echo $row['Site']; ?></td>
 			<td><?php echo $row['sector']; ?></td>
 			<td><?php echo $row['fiber_Vendor']; ?></td>
 			<td><?php echo $row['link_Between']; ?></td>
@@ -136,6 +138,7 @@ while ($row = mysqli_fetch_array($rec)){ ?>
 </tbody>					
 </table>  
 <br>
+<a href="delete.php"><button style="float:right" type="submit" name="update" class="btn-danger btn-lg">Delete</button></a>
 <a href="indexForDailyData.php"><button style="float:right" class=" btn-primary btn-lg ">Add</button></a>
 				
  </div>  

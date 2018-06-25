@@ -1,4 +1,6 @@
 <?php
+include 'session.php';
+chk_Session(4);
 $servername = "localhost";
     $username = "root";
     $password = "";
@@ -52,8 +54,9 @@ $servername = "localhost";
                   <th>Location</th>
                   <th>Status</th>
                   <th>On Air Date</th>
-                  <th>Final Soft Copy (SSD)</th>
+                  <th>No_Sector</th>
                   <th>Civil Vendor</th>
+                  <th>Details</th>
                 </tr>
             </thead>
             <tbody>
@@ -71,8 +74,11 @@ $servername = "localhost";
                     <td><?php echo $Oneuser['Location'];?></td>
                     <td width="10px"><?php echo $Oneuser['Status']; ?></td>
                     <td><?php echo $Oneuser['On_Air_Date']; ?></td>
-                    <td><?php echo $Oneuser['Final_Soft_Copy_SSD']; ?></td>
+                    <td><?php echo $Oneuser['No_Sector']; ?></td>
                     <td><?php echo $Oneuser['Civil_Vendor']; ?></td>
+                    <td>
+                      <a href="testBtsdetails.php?id=<?php echo $Oneuser['id']; ?>">Details</a>
+                    </td>
                   </tr>
                     <?php
                    

@@ -1,5 +1,7 @@
 <?php 
-session_start();
+//session_start();
+//var_dump($_SESSION['user']);die();
+if (!isset($_SESSION)) session_start();
 $user_id=$_SESSION['user'];
 
 $dbc=mysqli_connect('localhost','root','','qubee')
@@ -34,16 +36,18 @@ $row=array();
 	
 	<div class="collapse navbar-collapse js-navbar-collapse">
 		<ul class="nav navbar-nav">
-			<li><a href="menu2.php"><strong>Home </strong></a></li>			
-			<li><a href="outage.php"><strong>Outage</strong> </a></li>			
-			<li><a href="topUser.php"><strong>Top Users</strong> </a></li>			
+			<li><a href="home.php"><strong>Home </strong></a></li>			
+			<li><a href="outage.php"><strong>Outage</strong> </a></li>	
+			<?php if(in_array(6,$row)){ ?>		
+			<li><a href="topUser.php"><strong>Top Users</strong> </a></li>	
+			<?php } ?>		
 			<li><a href="bts.php"><strong>BTS</strong> </a></li>			
 			<li><a href="misc.php"><strong>MISC</strong> </a></li>	
 			<?php if(in_array(1, $row)){ ?>		
 			<li><a href="adminOperation.php"><strong>Admin Operations </strong></a></li>	
 			<?php } ?>				
             <li><a href="about.php"><strong>About</strong></a></li>
-            <li><a href="#"><strong>Contact Us</strong></a></li>
+            <li><a href="http://www.qubee.com.bd/contact/contact-info"><strong>Contact Us</strong></a></li>
 		</ul>
         <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">

@@ -1,5 +1,6 @@
 <?php 
-
+include 'session.php';
+chk_Session(2); 
 $con = mysqli_connect('localhost','root','','qubee') or die("Error in DB connection");
 if (isset($_POST['submit'])) {
 	$package=$_POST['package'];

@@ -2,7 +2,7 @@
 $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "test";
+    $dbname = "qubee";
     $con = mysqli_connect($servername, $username, $password, $dbname);
     $hard_details_data = array();
     $assign_history_data = array();

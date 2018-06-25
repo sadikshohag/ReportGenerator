@@ -1,5 +1,7 @@
 
 <?php
+include 'session.php';
+chk_Session(1); 
 $hard_details_data = array();
 $current_Date=date("Y-m-d");
 $from_date_time=$current_Date.'00:00:00';

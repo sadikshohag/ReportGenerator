@@ -1,70 +1,5 @@
 <?php
 
-header('Content-Type: application/json');
-
-// $con = mysqli_connect("localhost", "root", "", "qubee");
-
-
-
-//     // echo "<pre>";
-//     // print_r($data_points);
-//     // die();
-
-
-// // Check connection
-// if (mysqli_connect_errno($con))
-// {
-//     echo "Failed to connect to DataBase: " . mysqli_connect_error();
-// }else
-// {
-//     $data_points = array();
-//     $data_points1 = array();
-//     $data_points2 = array();
-//     $data_points3 = array();
-//     $data_points4 = array();
-    
-//     /*$result = mysqli_query($con, "SELECT Date, SUM(low_Impact_outage_Mins)as LIOM,sum(High_Impact_outage_Mins) as HIOM,Sum(Very_High_Impact_outage_Mins) as VHIOM,COUNT(Site) as user FROM weekly_reports group by Date");*/
-//     $result = mysqli_query($con, "SELECT Down_Date, SUM(Duration_of_Outage_Mins)as LIOM FROM info where Down_Time between '$from_peak_time' and '$to_peak_time' group by Down_Date");
-    
-//     while($row = mysqli_fetch_array($result))
-//     {        
-//         $point = array("label" => $row['Down_Date'] , "y" => $row['LIOM']);
-        
-//         array_push($data_points1, $point);        
-//     }
-//     $result1 = mysqli_query($con, "SELECT Down_Date, SUM(Duration_of_Outage_Mins)as HIOM FROM info where Down_Time between '$from_busy_time' and '$to_busy_time' group by Down_Date");
-//         while($row = mysqli_fetch_array($result1))
-//     {        
-//         $point = array("label" => $row['Down_Date'] , "y" => $row['HIOM']);
-        
-//         array_push($data_points2, $point);        
-//     }
-//     $result2 = mysqli_query($con, "SELECT Down_Date, SUM(Duration_of_Outage_Mins)as VHIOM FROM info where Down_Time between '$from_very_busy_time' and '$to_very_busy_time' group by Down_Date");
-//     while($row = mysqli_fetch_array($result2))
-//     {        
-//         $point = array("label" => $row['Down_Date'] , "y" => $row['VHIOM']);
-        
-//         array_push($data_points3, $point);        
-//     }
-//     $result3 = mysqli_query($con, "SELECT Date, COUNT(Site) as user FROM weekly_reports group by Date");
-//     while($row = mysqli_fetch_array($result3))
-//     {        
-//         $point = array("label" => $row['Date'] , "y" => $row['user']);
-        
-//         array_push($data_points4, $point);        
-//     }
-//     array_push($data_points,$data_points1);
-//     array_push($data_points,$data_points2);
-//     array_push($data_points,$data_points3);
-//     array_push($data_points,$data_points4);
-//     // echo "<pre>";
-//     // print_r($data_points);
-//     // die();
-//     echo json_encode($data_points, JSON_NUMERIC_CHECK);
-// }
-// mysqli_close($con);
-
-
 function getDBConnection() {
     $con = mysqli_connect("localhost", "root", "", "qubee");
 
@@ -96,12 +31,17 @@ function getOutageDataType($fromDate, $toDate) {
 
     $finalData = array();
 
-    array_push($finalData, getPeakTimeData($fromDate, $toDate, $dataSet));
-    array_push($finalData, getBusyTimeData($fromDate, $toDate, $dataSet));
-    array_push($finalData, getVeryBusyTimeData($fromDate, $toDate, $dataSet));
+   array_push($finalData, getPeakTimeData($fromDate, $toDate, $dataSet));
+   array_push($finalData, getBusyTimeData($fromDate, $toDate, $dataSet));
+   array_push($finalData, getVeryBusyTimeData($fromDate, $toDate, $dataSet));
     array_push($finalData, getBtsData($fromDate, $toDate, $dataSet));
 
-    echo json_encode($finalData, JSON_NUMERIC_CHECK);
+    // echo "<pre>";
+    // print_r($finalData);
+    // echo "</pre>";
+    // die;
+
+    return $finalData;
 }
 
 function getPeakTimeData($fromDate, $toDate, $dataSet) {
@@ -131,12 +71,12 @@ function getPeakTimePerDay($dataSet, $date) {
                 ((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) <= strtotime("01:00:00")))
                 )) {
             $peakMinuteOfADay = $peakMinuteOfADay + 420;
-        } elseif (((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) <= strtotime("01:00:00"))) &&
+        } elseif (( (strtotime($data['down_date']) < strtotime($date)) || ( (strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) <= strtotime("01:00:00")))) &&
                 ((strtotime($data['up_date']) == strtotime($date)) && (strtotime($data['up_time']) < strtotime("07:59:59")))
         ) {
             $peakMinuteOfADay = $peakMinuteOfADay + getTimeDifferenceInMinute("01:00:00", $data['up_time']);
         } elseif (((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) > strtotime("01:00:00"))) &&
-                (((strtotime($data['up_date']) == strtotime($date)) && (strtotime($data['up_time']) >= strtotime("07:59:59"))) || ($data['up_date'] == "0000-00-00") )
+                ( (strtotime($data['up_date']) > strtotime($date)) || ((strtotime($data['up_date']) == strtotime($date)) && (strtotime($data['up_time']) >= strtotime("07:59:59"))) || ($data['up_date'] == "0000-00-00") )
         ) {
             $peakMinuteOfADay = $peakMinuteOfADay + getTimeDifferenceInMinute($data['down_time'], "07:59:59");
         } elseif (((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) > strtotime("01:00:00"))) &&
@@ -174,7 +114,7 @@ function getBusyTimePerDay($dataSet, $date) {
                 ((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) <= strtotime("08:00:00")))
                 )) {
             $busyMinuteOfADay = $busyMinuteOfADay + 720;
-        } elseif (((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) <= strtotime("08:00:00"))) &&
+        } elseif (( (strtotime($data['down_date']) < strtotime($date)) || ((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) <= strtotime("08:00:00")) )) &&
                 ((strtotime($data['up_date']) == strtotime($date)) && (strtotime($data['up_time']) < strtotime("19:59:59")))
         ) {
             $busyMinuteOfADay = $busyMinuteOfADay + getTimeDifferenceInMinute("08:00:00", $data['up_time']);
@@ -183,7 +123,7 @@ function getBusyTimePerDay($dataSet, $date) {
         ) {
             $busyMinuteOfADay = $busyMinuteOfADay + getTimeDifferenceInMinute($data['down_time'], "19:59:59");
         } elseif (((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) > strtotime("08:00:00"))) &&
-                ((strtotime($data['up_date']) == strtotime($date)) && (strtotime($data['up_time']) < strtotime("19:59:59")))
+                ( (strtotime($data['up_date']) > strtotime($date)) || ((strtotime($data['up_date']) == strtotime($date)) && (strtotime($data['up_time']) >= strtotime("19:59:59"))) || ($data['up_date'] == "0000-00-00") )
         ) {
             $busyMinuteOfADay = $busyMinuteOfADay + getTimeDifferenceInMinute($data['down_time'], $data['up_time']);
         }
@@ -226,7 +166,7 @@ function getVeryBusyTimeAM($dataSet, $date) {
         ) {
             $veryBusyMinuteAM = $veryBusyMinuteAM + getTimeDifferenceInMinute("00:00:00", $data['up_time']);
         } elseif (((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) > strtotime("00:00:00"))) &&
-                (((strtotime($data['up_date']) == strtotime($date)) && (strtotime($data['up_time']) >= strtotime("00:59:59"))) || ($data['up_date'] == "0000-00-00") )
+                ( (strtotime($data['up_date']) > strtotime($date)) || ((strtotime($data['up_date']) == strtotime($date)) && (strtotime($data['up_time']) >= strtotime("00:59:59"))) || ($data['up_date'] == "0000-00-00") )
         ) {
             $veryBusyMinuteAM = $veryBusyMinuteAM + getTimeDifferenceInMinute($data['down_time'], "00:59:59");
         } elseif (((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) > strtotime("00:00:00"))) &&
@@ -248,7 +188,7 @@ function getVeryBusyTimePM($dataSet, $date) {
                 ((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) <= strtotime("20:00:00")))
                 )) {
             $veryBusyMinutePM = $veryBusyMinutePM + 240;
-        } elseif (((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) <= strtotime("20:00:00"))) &&
+        } elseif (( (strtotime($data['down_date']) < strtotime($date)) || ((strtotime($data['down_date']) == strtotime($date)) && (strtotime($data['down_time']) <= strtotime("20:00:00")))) &&
                 ((strtotime($data['up_date']) == strtotime($date)) && (strtotime($data['up_time']) < strtotime("23:59:59")))
         ) {
             $veryBusyMinutePM = $veryBusyMinutePM + getTimeDifferenceInMinute("20:00:00", $data['up_time']);
@@ -283,8 +223,13 @@ function getBtsData($fromDate, $toDate, $dataSet) {
 function getBtsDataPerDay($dataSet, $date) {
     $btsCount = 0;
     foreach ($dataSet as $data) {
-        if ((strtotime($data['down_date']) <= strtotime($date)) &&
-                strtotime($data['up_date']) >= strtotime($date)) {
+        if ((strtotime($data['down_date']) == strtotime($date)) ||
+                (strtotime($data['up_date']) == strtotime($date) ) ||
+                (
+                (strtotime($data['down_date']) < strtotime($date)) &&
+                (strtotime($data['up_date']) >= strtotime($date) ) || (strtotime($data['up_date']) == "0000-00-00" )
+                )
+        ) {
             $btsCount++;
         }
     }
@@ -298,5 +243,3 @@ function getTimeDifferenceInMinute($from_time, $to_time) {
     $minutes = round($interval / 60);
     return $minutes;
 }
-
- ?>

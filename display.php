@@ -5,9 +5,13 @@ if(isset($_GET['edit'])) {
 	$rec = mysqli_query($conn,"SELECT * FROM info WHERE id = $id");
 	$record = mysqli_fetch_array($rec);
 	$category = $record['category'];
-	$down_Date_Time = $record['down_Date_Time'];
-	$up_Date_Time = $record['up_Date_Time'];
-	$site = $record['site'];
+	$down_Date_Time = $record['Down_Date'];
+	$down_time =$record['Down_Time'];
+	$combinedDT = $down_Date_Time." ".$down_time;
+	$up_Date_Time = $record['Up_Date'];
+	$up_time = $record['Up_Time'];
+	$combinedUDT = $up_Date_Time." ". $up_time;
+	$site = $record['Site'];
 	$sector = $record['sector'];
 	$fiber_Vendor = $record['fiber_Vendor'];
 	$link_Between = $record['link_Between'];
@@ -83,11 +87,12 @@ if(isset($_GET['edit'])) {
   
 	<div class="collapse navbar-collapse js-navbar-collapse">
 		<ul class="list-inline text-center">
-			<li><a href="down.php"><strong>Insert Outage</strong></a></li>			
+			<li><a href="down.php"><strong>Insert Outage</strong></a></li>	
+			<li><a href="outage.php"><strong>Outage Log</strong></a></li>			
 			<li><a href="viewOutage.php"><strong>View Outage</strong> </a></li>			
 			<li><a href="planedOutage.php"><strong>Planned/Unplanned Outage</strong> </a></li>			
 			<li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			
-			<li><a href="userImpact.php"><strong>User Imapct Graph</strong> </a></li>			
+			<li><a href="#"><strong>User Imapct Graph</strong> </a></li>			
 		</ul>
         
 	</div><!-- /.nav-collapse -->
@@ -114,10 +119,10 @@ if(isset($_GET['edit'])) {
 			</select>
 		 
 		<label>Down Date Time</label>
-		<input type="datetime" id="datetime1" name="down_Date_Time" value="<?php echo $down_Date_Time; ?>">
+		<input type="datetime" id="datetime1" name="down_Date_Time" value="<?php echo $combinedDT; ?>">
 		
 		<label>Up Date Time</label>
-		<input type="datetime" id="datetime2" name="up_Date_Time" value="<?php echo $up_Date_Time; ?>">
+		<input type="datetime" id="datetime2" name="up_Date_Time" value="<?php echo $combinedUDT; ?>">
 		</fieldset>
 		<br>
 		
@@ -136,9 +141,14 @@ if(isset($_GET['edit'])) {
 		<label>Fiber Vendor</label>
 		<select name="fiber_Vendor">
 			<option value=""></option>
+
 			<option <?php echo($fiber_Vendor=='Summit')?"selected":""?>>Summit</option>
 			<option <?php echo($fiber_Vendor=='Telnet')?"selected":""?>>Telnet</option>
 			<option <?php echo($fiber_Vendor=='F@H')?"selected":""?>>F@H</option>
+			<option <?php echo($fiber_Vendor=='Drik')?"selected":""?>>Drik</option>
+			<option <?php echo($fiber_Vendor=='APCL')?"selected":""?>>APCL</option>
+			<option <?php echo($fiber_Vendor=='SCL')?"selected":""?>>SCL</option>
+			<option <?php echo($fiber_Vendor=='N/A')?"selected":""?>>N/A</option>
 			</select>
 			
 		<label>Link Between</label>

@@ -1,11 +1,13 @@
 <?php
+include 'session.php';
+chk_Session(4);
 $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "qubee";
     $con = mysqli_connect($servername, $username, $password, $dbname);
     $hard_details_data = array();
-    $query = "SELECT * from onair";
+    $query = "SELECT count(district) as Area,district from onair group by district order by Area desc";
     $result = mysqli_query($con,$query);
     
     while($row = mysqli_fetch_assoc($result))
@@ -27,20 +29,32 @@ $servername = "localhost";
     <!-- Bootstrap CSS -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
 
-    <title>QUBEE Daily Site Outage </title>
+    <title>QUBEE BTS Report </title>
   </head>
   <body>
         <?php include 'menu2.php'; ?>
-		<br/>
-		<div class="container2">
+    <br/>
+    <div class="container2">
   
-	<div class="collapse navbar-collapse js-navbar-collapse">
-		<ul class="list-inline text-center">
-			<li><a href="onAirSite.php"><strong>On Air Site Tracker</strong></a></li>			
-			<li><a href="siteSum.php"><strong>Site list summary</strong> </a></li>					
-		</ul>
+  <div class="collapse navbar-collapse js-navbar-collapse">
+    <ul class="list-inline text-center">
+      <li><a href="onAirSite.php"><strong>On Air Site Tracker</strong></a></li>     
+      <li><a href="areawiseSum.php"><strong>Site list summary</strong> </a></li>          
+    </ul>
         
-	</div><!-- /.nav-collapse -->
+  </div><!-- /.nav-collapse -->
+ 
+</div>
+<br>
+<div class="container3">
+  
+  <div class="collapse navbar-collapse js-navbar-collapse">
+    <ul class="list-inline text-center">
+      <li><a href="AreawiseSum.php"><strong>Areawise Summary</strong></a></li>      
+      <li><a href="operatorwiseSum.php"><strong>Operatorwise Summary</strong> </a></li>         
+    </ul>
+        
+  </div><!-- /.nav-collapse -->
  
 </div>
        <div class="wrapper">
@@ -53,15 +67,15 @@ $servername = "localhost";
             <thead>
                 <tr class="alert-success">
                   <th>SL</th>
-                  <th>Qubee ID</th>
-                  <th>Operator</th>
-                  <th>Region</th>
-                  <th>Location</th>
-                  <th>Status</th>
-                  <th>On Air Date</th>
-                  <th>No_Sector</th>
-                  <th>Civil Vendor</th>
-                  <th>Details</th>
+                  <th>On Air Area</th>
+                  <th>Total</th>
+<!--                   <th>Operator</th>
+<th>Region</th>
+<th>Location</th>
+<th>Status</th>
+<th>On Air Date</th>
+<th>Final Soft Copy (SSD)</th>
+<th>Civil Vendor</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -73,17 +87,8 @@ $servername = "localhost";
                     ?>
                   <tr>
                   	<td><?php echo $serial;?></td>
-                    <td><?php echo $Oneuser['Qubee_ID'];?></td>
-                    <td><?php echo $Oneuser['Operator'];?></td>
-                    <td><?php echo $Oneuser['Region'];?></td>
-                    <td><?php echo $Oneuser['Location'];?></td>
-                    <td width="10px"><?php echo $Oneuser['Status']; ?></td>
-                    <td><?php echo $Oneuser['On_Air_Date']; ?></td>
-                    <td><?php echo $Oneuser['No_Sector']; ?></td>
-                    <td><?php echo $Oneuser['Civil_Vendor']; ?></td>
-                    <td>
-                      <a href="testBtsdetails.php?id=<?php echo $Oneuser['id']; ?>">Details</a>
-                    </td>
+                    <td>On air BTS  <?php echo $Oneuser['district']; ?></td>
+                    <td align="center"><?php echo $Oneuser['Area'];?></td>
                   </tr>
                     <?php
                    

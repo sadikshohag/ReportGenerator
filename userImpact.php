@@ -11,10 +11,11 @@ if (isset($_POST['submit'])) {
     $dt = new DateTime("now", new DateTimeZone('Asia/Dhaka'));
     $toDate = $dt->format('Y-m-d');
 
-    $dt->modify('-30 day');
+    $dt->modify('-7 day');
     $fromDate = $dt->format('Y-m-d');
 
     $dataSet = getOutageDataType($fromDate, $toDate);
+    
 }
 //echo '<pre>';
 //print_r($dataSet[0]);
@@ -34,11 +35,13 @@ if (isset($_POST['submit'])) {
 
             <div class="collapse navbar-collapse js-navbar-collapse">
                 <ul class="list-inline text-center">
-                    <li><a href="indexForDailyData.php"><strong>Insert Outage</strong></a></li>			
-                    <li><a href="viewOutage.php"><strong>View Outage</strong> </a></li>			
-                    <li><a href="planedOutage.php"><strong>Planned/Unplanned Outage</strong> </a></li>			
-                    <li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			
-                    <li><a href="userImpact.php"><strong>User Imapct Graph</strong> </a></li>			
+                    <li><a href="indexForDailyData.php"><strong>Insert Outage</strong></a></li>
+                    <li><a href="outage.php"><strong>Outage Log</strong></a></li>           
+                    <li><a href="viewOutage.php"><strong>View Daily Outage</strong> </a></li>
+                    <li><a href="outageData.php"><strong>Outage Data</strong></a></li>                      
+                    <li><a href="planedOutage.php"><strong>Planned/Unplanned Outage</strong> </a></li>          
+                    <!-- <li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>            -->
+                    <li><a href="userImpact.php"><strong>User Imapct Graph</strong> </a></li>           
                 </ul>
 
             </div><!-- /.nav-collapse -->
@@ -72,9 +75,9 @@ if (isset($_POST['submit'])) {
                 text: "Total Outage"
             },
             axisX: {
-                interval: 1,
-                intervalType: "year",
-                valueFormatString: "YYYY"
+                //interval: 1,
+                //intervalType: "year",
+                valueFormatString: "Y-m-d"
             },
             // axisY: {
             // 	minimum:50,
@@ -92,7 +95,7 @@ if (isset($_POST['submit'])) {
                     [
                         {
                             type: "stackedColumn100",
-                            name: "Fiber Problem", 
+                            name: "Power Problem", 
                             indexLabel: "{y}",
                             showInLegend: true,
                             dataPoints: [
@@ -120,7 +123,7 @@ foreach ($dataSet[1] as $data) {
                         },
                         {
                             type: "stackedColumn100",
-                            name: "Equipment Problem",
+                            name: "Fiber Problem",
                             indexLabel: "{y}",
                             showInLegend: true,
                             dataPoints: [
@@ -134,7 +137,7 @@ foreach ($dataSet[2] as $data) {
                         },
                         {
                             type: "stackedColumn100",
-                            name: "Others",
+                            name: "Equipment problem",
                             indexLabel: "{y}",
                             showInLegend: true,
                             dataPoints: [

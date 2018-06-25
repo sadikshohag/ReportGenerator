@@ -89,8 +89,7 @@ if(isset($_GET['id']))
        <input type="text" name="" value="<?php echo $Oneuser['Location'];?>">
        <br/>
        <br/>
-       <label>District</label>
-       <input type="text" name="" value="<?php echo $Oneuser['district'];?>">
+       
        <label>Status</label>
        <input type="text" name="" value="<?php echo $Oneuser['Status'];?>">
        <label>On Air Date</label>
@@ -124,7 +123,7 @@ if(isset($_GET['id']))
        <br/>
        <label>Coverage_Objective</label>
        <input type="text" name="" value="<?php echo $Oneuser['Coverage_Objective'];?>">
-       <label>Sector_Remarks</label>
+       <label>Sector_Remaks</label>
        <input type="text" name="" value="<?php echo $Oneuser['Sector_Remarks'];?>">
        <label>Power_Type</label>
        <input type="text" name="" value="<?php echo $Oneuser['Power_Type'];?>">
@@ -138,6 +137,42 @@ if(isset($_GET['id']))
        <input type="text" name="" value="<?php echo $Oneuser['Key_Lock_Remarks'];?>">
        <br>
        <br>
+       <br>
+	   <label>APM30_APM30H</label>
+       <input type="text" name="" value="<?php echo $Oneuser['APM30_APM30H'];?>">
+	   <br>
+	   <br>
+	   <label>IBBS_Battery RACK</label>
+       <input type="text" name="" value="<?php echo $Oneuser['IBBS_Battery_RACK'];?>">
+       <label>PU_Cabinet </label>
+       <input type="text" name="" value="<?php echo $Oneuser['PU_Cabinet'];?>">
+	   <br>
+	   <br>
+	   <label>BL_GP_Robi_Key_Code</label>
+       <input type="text" name="" value="<?php echo $Oneuser['BL_GP_Robi_Key_Code'];?>">
+       <label>ASN_CPU </label>
+       <input type="text" name="" value="<?php echo $Oneuser['ASN_CPU'];?>">
+       <label> 	LLVD </label>
+       <input type="text" name="" value="<?php echo $Oneuser['LLVD'];?>">
+	   <br>
+	   <br>
+	   <label>BLVD </label>
+       <input type="text" name="" value="<?php echo $Oneuser['BLVD'];?>">
+       <label>Float_Chaging_Voltage </label>
+       <input type="text" name="" value="<?php echo $Oneuser['Float_Chaging_Voltage'];?>">
+       <label>Boost_charging_Duration</label>
+       <input type="text" name="" value="<?php echo $Oneuser['Boost_charging_Duration'];?>">
+	   <br>
+	   <br>
+	   <label>Number_RRU</label>
+       <input type="text" name="" value="<?php echo $Oneuser['Number_of_RRU'];?>">
+       <label> 	No_Sector  </label>
+       <input type="text" name="" value="<?php echo $Oneuser['No_Sector'];?>">
+       <label> On_Behalf  </label>
+       <input type="text" name="" value="<?php echo $Oneuser['On_Behalf'];?>">
+	   <br>
+	   <br>
+	   
                            <?php
                    
                   endforeach;

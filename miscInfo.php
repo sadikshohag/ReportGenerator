@@ -1,6 +1,7 @@
 <?php 
 include 'miscDataProcess.php';
-
+include 'session.php';
+chk_Session(5); 
 $dataSet = array();
 
 if (isset($_POST['submit'])) {

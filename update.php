@@ -1,5 +1,10 @@
 <?php include('server1.php');
-	
+	$bts_list = array();
+	$sql = "SELECT `Qubee_ID` FROM `onair` ";
+	$queryResult = mysqli_query($conn, $sql);
+	while($row = mysqli_fetch_assoc($queryResult)){
+		array_push($bts_list, $row['Qubee_ID']);
+	}
 ?>
 <!Doctype html>
 	<html>
@@ -27,11 +32,13 @@
   
 	<div class="collapse navbar-collapse js-navbar-collapse">
 		<ul class="list-inline text-center">
-			<li><a href="down.php"><strong>Insert Outage</strong></a></li>			
-			<li><a href="viewOutage.php"><strong>View Outage</strong> </a></li>			
+			<li><a href="down.php"><strong>Insert Outage</strong></a></li>	
+			<li><a href="outage.php"><strong>Outage Log</strong></a></li>
+			<li><a href="viewOutage.php"><strong>View Outage</strong> </a></li>	
+      		<li><a href="outageData.php"><strong>Outage Data</strong></a></li>            		
 			<li><a href="planedOutage.php"><strong>Planned/Unplanned Outage</strong> </a></li>			
-			<li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			
-			<li><a href="#"><strong>User Imapct Graph</strong> </a></li>			
+			<!-- <li><a href="outageGraph.php"><strong>Outage Minute Graph</strong> </a></li>			 -->
+			<li><a href="userImpact.php"><strong>User Imapct Graph</strong> </a></li>			
 		</ul>
         
 	</div><!-- /.nav-collapse -->
@@ -68,12 +75,29 @@
 		
 		<fieldset>
 		<legend>Site Info</legend>
-		<label>Site</label>
-		<input type="text" name="site" value="<?php echo $_GET['site']; ?>">
-			
-		<label>Sector</label>
-		<input type="text" name="sector" value="<?php echo $_GET['sector']; ?>">
-		</fieldset>
+		  <select name="site">
+		<option value=""></option>
+		<?php
+			foreach($bts_list as $bts){
+				$selected=($options == $bts)? "selected" : "";
+				echo "<option '.$selected.'value=".$bts.">". $bts ."</option>" ;
+			}
+		
+		?>
+			 
+	 </select>
+	<label><b>Sector</b></label>
+	 <select name="sector">
+	 <option value=""></option>
+	 <option <?php echo($sector=='1')?"selected":""?>>1</option>
+	 <option <?php echo($sector=='2')?"selected":""?>>2</option>
+	 <option <?php echo($sector=='3')?"selected":""?>>3</option>
+	 <option <?php echo($sector=='4')?"selected":""?>>4</option>
+	 <option <?php echo($sector=='5')?"selected":""?>>5</option>
+	 <option <?php echo($sector=='6')?"selected":""?>>6</option>
+	 <option <?php echo($sector=='7')?"selected":""?>>7</option>
+	 </select>
+	</fieldset>
 		<br>
 		
 		<fieldset>
@@ -84,6 +108,10 @@
 			<option <?php echo($_GET['fiber_Vendor']=='Summit')?"selected":""?>>Summit</option>
 			<option <?php echo($_GET['fiber_Vendor']=='Telnet')?"selected":""?>>Telnet</option>
 			<option <?php echo($_GET['fiber_Vendor']=='F@H')?"selected":""?>>F@H</option>
+			<option <?php echo($_GET['fiber_Vendor']=='Drik')?"selected":""?>>Drik</option>
+			<option <?php echo($_GET['fiber_Vendor']=='APCL')?"selected":""?>>APCL</option>
+			<option <?php echo($_GET['fiber_Vendor']=='SCL')?"selected":""?>>SCL</option>
+			<option <?php echo($_GET['fiber_Vendor']=='N/A')?"selected":""?>>N/A</option>
 			</select>
 			
 		<label>Link Between</label>
@@ -100,16 +128,29 @@
 			<option <?php echo($_GET['outage_type']=='Unplanned')?"selected":""?>>Unplanned</option>
 			</select>
 	
-	
+	<br>
+	<br>
 		
 		<label>Reason</label>
 		<select name="reason">
 			<option value=""></option>
 			<option <?php echo($_GET['reason']=='Power problem')?"selected":""?>>Power problem</option>
 			<option <?php echo($_GET['reason']=='Battery problem')?"selected":""?>>Battery problem</option>
+			<option <?php echo($_GET['reason']=='Fiber problem')?"selected":""?>>Fiber problem</option>
+			<option <?php echo($_GET['reason']=='Equipment problem')?"selected":""?>>Equipment problem</option>
+			<option <?php echo($_GET['reason']=='Technical problem')?"selected":""?>>Technical problem</option>
+			<option <?php echo($_GET['reason']=='Problem at SCL end')?"selected":""?>>Problem at SCL end</option>
+			<option <?php echo($_GET['reason']=='Problem at Summit end')?"selected":""?>>Problem at Summit end</option>
+			<option <?php echo($_GET['reason']=='CPRI cable faulty')?"selected":""?>>CPRI cable faulty</option>
+			<option <?php echo($_GET['reason']=='PMU faulty')?"selected":""?>>PMU faulty</option>
+			<option <?php echo($_GET['reason']=='Soft block')?"selected":""?>>Soft block</option>
+			<option <?php echo($_GET['reason']=='Device malfunctioning')?"selected":""?>>Device malfunctioning</option>
+			<option <?php echo($_GET['reason']=='Device problem at SCL end')?"selected":""?>>Device problem at SCL end</option>
+			<option <?php echo($_GET['reason']=='Breaker tripped')?"selected":""?>>Breaker tripped</option>
+			<option <?php echo($_GET['reason']=='Link flap')?"selected":""?>>Link flap</option>
 			<option <?php echo($_GET['reason']=='Others')?"selected":""?>>Others</option>
 			</select>
-			<br>
+	
 		
 		<label>Specific reason</label>
 		<input type="text" name="specific_reason" value="<?php echo $_GET['specific_reason']; ?>">
